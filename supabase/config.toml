@@ -1,0 +1,2 @@
+[functions.ai-router]
+verify_jwt = true
