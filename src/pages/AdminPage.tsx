@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import {
-  Check, Edit3, Plus, Save, Shield, Trash2, X, Zap,
+  Check, Edit3, Key, Plus, Save, Shield, Trash2, X, Zap,
 } from 'lucide-react';
 import {
   fetchAllModels, saveModelAdmin, deleteModelAdmin,
+  checkApiKey, setApiKey,
 } from '@/lib/ai-api';
 import {
   providerLabels, tierLabels, tierColors,
@@ -88,6 +89,9 @@ export function AdminPage() {
         </button>
       </div>
 
+      {/* API Keys */}
+      <ApiKeyManager />
+
       {/* Stats */}
       <div className="mb-6 grid gap-4 sm:grid-cols-4">
         <StatCard label="Total models" value={String(models.length)} />
@@ -167,6 +171,99 @@ export function AdminPage() {
       {editing && (
         <EditModelModal model={editing} onClose={() => setEditing(null)} onSave={saveModel} />
       )}
+    </div>
+  );
+}
+
+function ApiKeyManager() {
+  const [keys, setKeys] = useState<Record<string, boolean>>({});
+  const [editingKey, setEditingKey] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  const keyDefs = [
+    { name: 'OPENROUTER_API_KEY', label: 'OpenRouter API Key', desc: 'Used for all chat and Smart AI requests' },
+    { name: 'OPENAI_API_KEY', label: 'OpenAI API Key', desc: 'Used for DALL-E image generation' },
+  ];
+
+  const load = async () => {
+    const results: Record<string, boolean> = {};
+    for (const k of keyDefs) {
+      results[k.name] = await checkApiKey(k.name);
+    }
+    setKeys(results);
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const handleSave = async (keyName: string) => {
+    if (!inputValue.trim()) return;
+    setSaving(true);
+    const result = await setApiKey(keyName, inputValue.trim());
+    setSaving(false);
+    if (!result.success) {
+      alert('Error saving key: ' + (result.error ?? 'Unknown error'));
+      return;
+    }
+    setInputValue('');
+    setEditingKey(null);
+    load();
+  };
+
+  return (
+    <div className="mb-6 rounded-3xl border border-slate-200/80 bg-white p-5 card-shadow">
+      <div className="mb-4 flex items-center gap-2">
+        <Key size={16} className="text-indigo-600" />
+        <h2 className="heading text-sm font-extrabold text-slate-800">API Keys</h2>
+      </div>
+      <div className="space-y-3">
+        {keyDefs.map(k => (
+          <div key={k.name} className="flex flex-col gap-2 rounded-2xl border border-slate-100 p-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-bold text-slate-700">{k.label}</span>
+                <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${keys[k.name] ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
+                  {keys[k.name] ? 'Configured' : 'Not set'}
+                </span>
+              </div>
+              <p className="mt-0.5 text-xs text-slate-400">{k.desc}</p>
+            </div>
+            <div className="flex items-center gap-2">
+              {editingKey === k.name ? (
+                <>
+                  <input
+                    type="password"
+                    value={inputValue}
+                    onChange={e => setInputValue(e.target.value)}
+                    placeholder="Paste API key..."
+                    className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-indigo-300 sm:w-64"
+                  />
+                  <button
+                    onClick={() => handleSave(k.name)}
+                    disabled={saving || !inputValue.trim()}
+                    className="rounded-xl bg-[#111827] px-4 py-2 text-xs font-bold text-white transition hover:bg-indigo-600 disabled:opacity-50"
+                  >
+                    <Save size={13} />
+                  </button>
+                  <button
+                    onClick={() => { setEditingKey(null); setInputValue(''); }}
+                    className="rounded-xl border border-slate-200 p-2 text-slate-400 hover:bg-slate-50"
+                  >
+                    <X size={13} />
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => { setEditingKey(k.name); setInputValue(''); }}
+                  className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold text-slate-600 transition hover:bg-slate-50"
+                >
+                  {keys[k.name] ? 'Update' : 'Set key'}
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

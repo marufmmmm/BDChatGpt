@@ -221,8 +221,9 @@ Deno.serve(async (req: Request) => {
         m.id === selectedModel && m.provider === "image" && m.supports_image
       );
       if (imageModel) {
-        const openaiKey = Deno.env.get("OPENAI_API_KEY") ?? "";
-        if (!openaiKey) throw new Error("Image generation API key not configured");
+        const { data: openaiKeyData } = await supabase.rpc("get_api_key", { p_key_name: "OPENAI_API_KEY" });
+        const openaiKey = (openaiKeyData as string) ?? "";
+        if (!openaiKey) throw new Error("Image generation API key not configured. Please set it in the admin panel.");
 
         const imageEstimate = calculateCredits(imageModel, 0, 0);
         if (availableCredits < imageEstimate.credits) {
@@ -289,8 +290,9 @@ Deno.serve(async (req: Request) => {
 
     // ─── Chat path: Smart AI or exact model selection ───
 
-    const openrouterKey = Deno.env.get("OPENROUTER_API_KEY") ?? "";
-    if (!openrouterKey) throw new Error("OpenRouter API key not configured");
+    const { data: openrouterKeyData } = await supabase.rpc("get_api_key", { p_key_name: "OPENROUTER_API_KEY" });
+    const openrouterKey = (openrouterKeyData as string) ?? "";
+    if (!openrouterKey) throw new Error("OpenRouter API key not configured. Please set it in the admin panel.");
 
     // Get Smart AI cost tier from app_settings
     const { data: settingsData } = await supabase

@@ -163,6 +163,20 @@ export async function fetchProfileCredits(): Promise<{ free: number; paid: numbe
   };
 }
 
+export async function checkApiKey(keyName: string): Promise<boolean> {
+  if (!supabase) return false;
+  const { data, error } = await supabase.rpc('check_api_key', { p_key_name: keyName });
+  if (error) return false;
+  return data as boolean;
+}
+
+export async function setApiKey(keyName: string, value: string): Promise<{ success: boolean; error?: string }> {
+  if (!supabase) return { success: false, error: 'Backend not configured' };
+  const { error } = await supabase.rpc('set_api_key', { p_key_name: keyName, p_value: value });
+  if (error) return { success: false, error: error.message };
+  return { success: true };
+}
+
 export async function purchaseCredits(amount: number): Promise<{ success: boolean; newBalance: number; error?: string }> {
   if (!supabase) return { success: false, newBalance: 0, error: 'Backend not configured' };
   const { data: sessionData } = await supabase.auth.getSession();
