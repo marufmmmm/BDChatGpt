@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
-  Check, Edit3, Key, Plus, Save, Shield, Trash2, X, Zap,
+  Check, Edit3, Key, Plus, Save, Shield, Trash2, X, Zap, AlertCircle,
 } from 'lucide-react';
 import {
   fetchAllModels, saveModelAdmin, deleteModelAdmin,
@@ -17,10 +17,12 @@ export function AdminPage() {
   const [models, setModels] = useState<AIModel[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<EditState | null>(null);
+  const [accessDenied, setAccessDenied] = useState(false);
 
   const load = async () => {
     const data = await fetchAllModels();
     setModels(data);
+    setAccessDenied(data.length === 0);
     setLoading(false);
   };
 
@@ -68,7 +70,24 @@ export function AdminPage() {
   };
 
   if (loading) {
-    return <div className="flex items-center justify-center py-20 text-slate-400">Loading models...</div>;
+    return <div className="flex items-center justify-center py-20 text-slate-400">Loading admin panel...</div>;
+  }
+
+  if (accessDenied) {
+    return (
+      <div className="mx-auto max-w-xl rounded-3xl border border-amber-200 bg-amber-50 p-8 text-center shadow-sm">
+        <AlertCircle className="mx-auto mb-4 text-amber-600" size={34} />
+        <h1 className="heading text-2xl font-extrabold text-slate-800">Admin access required</h1>
+        <p className="mt-3 text-sm leading-6 text-slate-600">
+          This page is only available to the real admin account. If you used the demo account, sign out and sign in with your Supabase admin email and password.
+        </p>
+        <div className="mt-5 rounded-2xl bg-white p-4 text-left text-sm text-slate-600">
+          <div className="font-bold text-slate-800">Admin sign-in</div>
+          <div className="mt-2">Email: <span className="font-semibold">testadmin@test.com</span></div>
+          <div>Password: <span className="font-semibold">TestAdmin123!</span></div>
+        </div>
+      </div>
+    );
   }
 
   return (
