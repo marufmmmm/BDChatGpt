@@ -1,16 +1,23 @@
-import { useEffect, useState } from 'react';
-import { Download, FileArchive, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
-import { useAuth } from '@/lib/auth';
+import { useState } from 'react';
+import { Download, FileArchive, CheckCircle2, Package } from 'lucide-react';
+import { downloadPlugin } from '@/lib/plugin-data';
 
 export function DownloadPage() {
-  const { user } = useAuth();
-  const [exists, setExists] = useState<boolean | null>(null);
+  const [downloading, setDownloading] = useState(false);
+  const [done, setDone] = useState(false);
 
-  useEffect(() => {
-    fetch('/bdchat-wordpress-plugin.zip', { method: 'HEAD' })
-      .then((r) => setExists(r.ok))
-      .catch(() => setExists(false));
-  }, []);
+  const handleDownload = () => {
+    setDownloading(true);
+    setDone(false);
+    try {
+      downloadPlugin();
+      setDone(true);
+    } catch (err) {
+      console.error('Download failed:', err);
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -21,7 +28,7 @@ export function DownloadPage() {
           </div>
           <div>
             <h1 className="heading text-2xl font-bold text-slate-900">Download WordPress Plugin</h1>
-            <p className="text-sm text-slate-500">BDChat AI Workspace — version 1.0.0</p>
+            <p className="text-sm text-slate-500">BDChat AI Workspace — version 1.0.0 · ~119 KB</p>
           </div>
         </div>
 
@@ -31,7 +38,7 @@ export function DownloadPage() {
             <ol className="mt-3 space-y-2 text-sm text-slate-600">
               <li className="flex gap-2">
                 <span className="font-bold text-slate-400">1.</span>
-                <span>Click the download button below to save the ZIP file.</span>
+                <span>Click the download button below to save the ZIP file to your computer.</span>
               </li>
               <li className="flex gap-2">
                 <span className="font-bold text-slate-400">2.</span>
@@ -59,28 +66,33 @@ export function DownloadPage() {
             </ul>
           </div>
 
-          {exists === null ? (
-            <div className="flex items-center justify-center py-6 text-slate-400">
-              <Loader2 size={24} className="animate-spin" />
+          {done ? (
+            <div className="flex items-center gap-3 rounded-2xl border border-green-200 bg-green-50 p-4 text-sm font-semibold text-green-700">
+              <CheckCircle2 size={20} className="shrink-0" />
+              Download started! Check your downloads folder.
             </div>
-          ) : exists ? (
-            <a
-              href="/bdchat-wordpress-plugin.zip"
-              download="bdchat-wordpress-plugin.zip"
-              className="flex w-full items-center justify-center gap-3 rounded-2xl bg-slate-900 px-6 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-slate-800 active:scale-[0.98]"
-            >
-              <Download size={22} />
-              Download Plugin (ZIP)
-            </a>
           ) : (
-            <div className="flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-700">
-              <AlertCircle size={20} className="shrink-0" />
-              <span>The plugin file is not available yet. Please rebuild and try again.</span>
-            </div>
+            <button
+              onClick={handleDownload}
+              disabled={downloading}
+              className="flex w-full items-center justify-center gap-3 rounded-2xl bg-slate-900 px-6 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-slate-800 active:scale-[0.98] disabled:opacity-60"
+            >
+              {downloading ? (
+                <>
+                  <Package size={22} className="animate-pulse" />
+                  Preparing download...
+                </>
+              ) : (
+                <>
+                  <Download size={22} />
+                  Download Plugin (ZIP)
+                </>
+              )}
+            </button>
           )}
 
           <p className="text-center text-xs text-slate-400">
-            File size: ~119 KB · Includes PHP, JavaScript, CSS, and manifest
+            The file is generated directly in your browser — no server connection needed.
           </p>
         </div>
       </div>
