@@ -13,6 +13,7 @@ import { SettingsPage } from '@/pages/SettingsPage';
 import { AdminPage } from '@/pages/AdminPage';
 import { AuthPage } from '@/pages/AuthPage';
 import { LegalPage } from '@/pages/LegalPage';
+import { DownloadPage } from '@/pages/DownloadPage';
 import type { View } from '@/lib/types';
 
 function AppShell() {
@@ -43,6 +44,7 @@ function AppShell() {
     : location.pathname === '/subscription' ? 'subscription'
     : location.pathname === '/settings' ? 'settings'
     : location.pathname === '/admin' ? 'admin'
+    : location.pathname === '/download' ? 'download'
     : 'dashboard';
 
   return (
@@ -78,6 +80,7 @@ function AppShell() {
           {current === 'subscription' && <SubscriptionPage />}
           {current === 'settings' && <SettingsPage />}
           {current === 'admin' && <AdminPage />}
+          {current === 'download' && <DownloadPage />}
         </div>
       </main>
     </div>

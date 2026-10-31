@@ -1,5 +1,5 @@
 export type Plan = 'Free' | 'Normal' | 'Medium' | 'Pro';
-export type View = 'dashboard' | 'chat' | 'images' | 'usage' | 'explore' | 'subscription' | 'settings' | 'admin';
+export type View = 'dashboard' | 'chat' | 'images' | 'usage' | 'explore' | 'subscription' | 'settings' | 'admin' | 'download';
 export type Asset = {
   id: string;
   kind: 'file' | 'image';

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
-  ArrowRight, BarChart3, Bot, CreditCard, ImageIcon, LayoutDashboard,
+  ArrowRight, BarChart3, Bot, CreditCard, Download, ImageIcon, LayoutDashboard,
   Menu, MessageCircle, MoreHorizontal, Plus, Search, Settings, Shield, Trash2, X,
 } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
@@ -69,6 +69,7 @@ export function Sidebar({
     { id: 'subscription', label: 'Subscription', icon: CreditCard, path: '/subscription' },
     { id: 'settings', label: 'Settings', icon: Settings, path: '/settings' },
     { id: 'admin', label: 'Admin Panel', icon: Shield, path: '/admin' },
+    { id: 'download', label: 'WP Plugin', icon: Download, path: '/download' },
   ];
 
   const content = (
