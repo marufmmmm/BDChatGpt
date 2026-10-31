@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { HashRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Bell, Command } from 'lucide-react';
 import { AuthProvider, useAuth } from '@/lib/auth';
 import { Sidebar, MobileMenuButton } from '@/components/Sidebar';
@@ -86,7 +86,7 @@ function AppShell() {
 
 function AppRoutes() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/login" element={<AuthPage mode="login" />} />
         <Route path="/register" element={<AuthPage mode="register" />} />
@@ -94,7 +94,7 @@ function AppRoutes() {
         <Route path="/privacy" element={<LegalPage title="Privacy Policy" />} />
         <Route path="/*" element={<AppShell />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
