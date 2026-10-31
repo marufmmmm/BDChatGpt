@@ -24,7 +24,7 @@ function AppShell() {
 
   useEffect(() => {
     if (!loading && !user) {
-      const publicPaths = ['/login', '/register', '/terms', '/privacy'];
+      const publicPaths = ['/login', '/register', '/terms', '/privacy', '/download'];
       if (!publicPaths.includes(location.pathname)) {
         navigate('/login');
       }
@@ -33,7 +33,7 @@ function AppShell() {
 
   if (loading) return null;
   if (!user) {
-    const publicPaths = ['/login', '/register', '/terms', '/privacy'];
+    const publicPaths = ['/login', '/register', '/terms', '/privacy', '/download'];
     if (!publicPaths.includes(location.pathname)) return <Navigate to="/login" replace />;
   }
 
@@ -95,6 +95,7 @@ function AppRoutes() {
         <Route path="/register" element={<AuthPage mode="register" />} />
         <Route path="/terms" element={<LegalPage title="Terms & Conditions" />} />
         <Route path="/privacy" element={<LegalPage title="Privacy Policy" />} />
+        <Route path="/download" element={<DownloadPage />} />
         <Route path="/*" element={<AppShell />} />
       </Routes>
     </HashRouter>

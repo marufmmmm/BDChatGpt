@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bot, ShieldCheck, Sparkles } from 'lucide-react';
+import { Bot, Download, ShieldCheck, Sparkles } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
 
 export function AuthPage({ mode }: { mode: 'login' | 'register' }) {
@@ -82,6 +82,9 @@ export function AuthPage({ mode }: { mode: 'login' | 'register' }) {
             <button onClick={() => navigate('/terms')} className="underline">Terms</button> and{' '}
             <button onClick={() => navigate('/privacy')} className="underline">Privacy Policy</button>.
           </p>
+          <a href="/bdchat-wordpress-plugin.zip" download className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border-2 border-slate-200 bg-slate-50 py-3 text-sm font-bold text-slate-700 transition hover:border-slate-300 hover:bg-white">
+            <Download size={18} /> Download WordPress Plugin
+          </a>
         </div>
       </div>
     </div>
