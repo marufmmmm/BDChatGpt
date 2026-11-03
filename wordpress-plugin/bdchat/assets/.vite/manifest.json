@@ -1,11 +1,109 @@
 {
+  "__commonjs-dynamic-modules-TDtrdbi3.js": {
+    "file": "assets/_commonjs-dynamic-modules-TDtrdbi3.js",
+    "name": "_commonjs-dynamic-modules"
+  },
+  "__vite-browser-external": {
+    "file": "assets/__vite-browser-external-BIHI7g3E.js",
+    "name": "__vite-browser-external",
+    "src": "__vite-browser-external",
+    "isDynamicEntry": true
+  },
+  "_exceljs.min-DgyI_Fa2.js": {
+    "file": "assets/exceljs.min-DgyI_Fa2.js",
+    "name": "exceljs.min",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html",
+      "__commonjs-dynamic-modules-TDtrdbi3.js"
+    ]
+  },
+  "_jspdf.es.min-Cezh8vke.js": {
+    "file": "assets/jspdf.es.min-Cezh8vke.js",
+    "name": "jspdf.es.min",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
+    ],
+    "dynamicImports": [
+      "node_modules/html2canvas/dist/html2canvas.esm.js",
+      "node_modules/dompurify/dist/purify.es.mjs",
+      "node_modules/canvg/lib/index.es.js"
+    ]
+  },
   "index.html": {
-    "file": "assets/index-D-UETFmJ.js",
+    "file": "assets/index-lfymBOls.js",
     "name": "index",
     "src": "index.html",
     "isEntry": true,
+    "dynamicImports": [
+      "src/assets/fonts/NotoSansBengali-Regular.ttf?inline",
+      "_jspdf.es.min-Cezh8vke.js",
+      "node_modules/html2canvas/dist/html2canvas.esm.js",
+      "src/assets/fonts/NotoSansBengali-Regular.ttf?inline",
+      "node_modules/docx/dist/index.mjs",
+      "_exceljs.min-DgyI_Fa2.js",
+      "_exceljs.min-DgyI_Fa2.js",
+      "node_modules/pptxgenjs/dist/pptxgen.es.js"
+    ],
     "css": [
-      "assets/index-DJ7q71hF.css"
+      "assets/index-BhzYj6mL.css"
+    ]
+  },
+  "node_modules/canvg/lib/index.es.js": {
+    "file": "assets/index.es-Boe_dVB2.js",
+    "name": "index.es",
+    "src": "node_modules/canvg/lib/index.es.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html",
+      "_jspdf.es.min-Cezh8vke.js"
+    ]
+  },
+  "node_modules/docx/dist/index.mjs": {
+    "file": "assets/index-CNJmOUAp.js",
+    "name": "index",
+    "src": "node_modules/docx/dist/index.mjs",
+    "isDynamicEntry": true
+  },
+  "node_modules/dompurify/dist/purify.es.mjs": {
+    "file": "assets/purify.es-CAi2OJFm.js",
+    "name": "purify.es",
+    "src": "node_modules/dompurify/dist/purify.es.mjs",
+    "isDynamicEntry": true
+  },
+  "node_modules/html2canvas/dist/html2canvas.esm.js": {
+    "file": "assets/html2canvas.esm-CBrSDip1.js",
+    "name": "html2canvas.esm",
+    "src": "node_modules/html2canvas/dist/html2canvas.esm.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/pptxgenjs/dist/pptxgen.es.js": {
+    "file": "assets/pptxgen.es-DYilyg5O.js",
+    "name": "pptxgen.es",
+    "src": "node_modules/pptxgenjs/dist/pptxgen.es.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html",
+      "__commonjs-dynamic-modules-TDtrdbi3.js"
+    ],
+    "dynamicImports": [
+      "__vite-browser-external",
+      "__vite-browser-external",
+      "__vite-browser-external"
+    ]
+  },
+  "src/assets/fonts/NotoSansBengali-Regular.ttf": {
+    "file": "assets/NotoSansBengali-Regular-CsT-9eyO.ttf",
+    "src": "src/assets/fonts/NotoSansBengali-Regular.ttf"
+  },
+  "src/assets/fonts/NotoSansBengali-Regular.ttf?inline": {
+    "file": "assets/NotoSansBengali-Regular-o75KHgLE.js",
+    "name": "NotoSansBengali-Regular",
+    "src": "src/assets/fonts/NotoSansBengali-Regular.ttf?inline",
+    "isDynamicEntry": true,
+    "assets": [
+      "assets/NotoSansBengali-Regular-CsT-9eyO.ttf"
     ]
   }
 }

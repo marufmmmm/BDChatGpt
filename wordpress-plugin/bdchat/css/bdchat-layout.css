@@ -1,0 +1,7 @@
+/* Fallback for the desktop layout. The app's responsive utility classes can be
+   missing when the theme or an optimizer changes the CSS; these rules keep the
+   sidebar visible and the content next to it on wide screens. */
+@media (min-width: 1024px) {
+  aside.fixed { transform: none !important; }
+  main.min-h-screen { padding-left: 280px; }
+}

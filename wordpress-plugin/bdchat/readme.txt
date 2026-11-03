@@ -1,24 +1,26 @@
-=== BDChat AI Workspace ===
+=== BD ChatGPT ===
 Contributors: bdchat
-Tags: artificial intelligence, chat, supabase
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Embed the BDChat AI workspace into any WordPress page with a shortcode.
+Multi-model AI chat with WordPress accounts, prepaid credits and an admin panel.
 
-== Installation ==
+== Setup ==
 
-1. Upload and activate the bdchat.zip file from Plugins > Add New > Upload Plugin.
-2. Create or edit a page where you want the workspace to appear.
-3. Add the shortcode [bdchat].
-4. Publish the page.
+1. Upload the plugin and activate it.
+2. Add these lines to wp-config.php, above "That's all, stop editing":
+
+   define('BDCHAT_OPENROUTER_KEY', 'your-openrouter-key');
+   define('BDCHAT_OPENAI_KEY', 'your-openai-key');   // only for image generation
+
+3. Create a page for the app and add the shortcode [bdchat].
+4. Admin panel: BD ChatGPT in the WordPress admin menu. Add models, set prices, grant credits, and change sign-up settings there.
 
 == Notes ==
 
-The bundled app uses the Supabase project configured when this plugin package was created. Supabase authentication, database tables, edge functions, and API keys must exist in that project for all features to work.
-
-Navigation uses hash URLs so it can run inside any WordPress permalink structure.
+* Sign-up, login and logout use WordPress accounts.
+* Credits and chat history are stored in WordPress database tables created on activation.
+* Pages with the chat app must not be fully cached, because each user needs a fresh nonce.
