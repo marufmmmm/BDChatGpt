@@ -7,7 +7,7 @@ import {
 import { useAuth } from '@/lib/auth';
 import { seedChats, type ChatThread } from '@/lib/types';
 
-type View = 'dashboard' | 'chat' | 'images' | 'usage' | 'explore' | 'subscription' | 'settings' | 'admin';
+type View = 'dashboard' | 'chat' | 'images' | 'usage' | 'explore' | 'subscription' | 'settings' | 'admin' | 'download';
 
 export function Sidebar({
   current,

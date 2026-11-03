@@ -4,7 +4,7 @@ import {
   Bot, Check, ChevronDown, Paperclip, Send, Sparkles, UserRound, X, Zap,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { type AIModel } from '@/lib/types';
+import { type AIModel, chatPacks } from '@/lib/types';
 import { fetchModels, fetchProfileCredits, purchaseCredits, sendChatRequest, type ChatResponse } from '@/lib/ai-api';
 
 export function ChatPage() {
